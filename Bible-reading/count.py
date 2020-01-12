@@ -8,10 +8,14 @@ colon_pt = re.compile('[:：,，;；]')
 name_syn = pd.read_excel('name-syn.xlsx', 'name-syn', index_col='syn', squeeze=True)
 name_syn = name_syn.to_dict()
 
-week_NO = '19第53周'
-last_week_NO = '19第52周'
+
+res_exrd = pd.ExcelFile('读经打卡表.xlsx')
+last_week_NO = res_exrd.sheet_names[-1]
+week_NO = int(last_week_NO.replace('周', '').split('第')[-1]) + 1
+week_NO = '%s第%d周' % (re.sub('第\d+周', '', last_week_NO), week_NO)
+
 df = pd.read_excel('raw-records.xlsx', week_NO)
-last_res = pd.read_excel('读经打卡表.xlsx', last_week_NO, index_col=0)
+last_res = res_exrd.parse(last_week_NO, index_col=0)
 
 name_sr_data = []
 for day in df.columns:
