@@ -1,3 +1,5 @@
 Bible-reading/*.xlsx
 Bible-reading/count-res/
 raw/
+
+*.ini
