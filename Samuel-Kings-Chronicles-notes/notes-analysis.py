@@ -42,6 +42,15 @@ def parse2year(duration):
 
 df['在位时间_year'] = df['在位时间'].map(parse2year)
 
+YSL_years = df.loc[df['国家']=='以色列', '在位时间_year']
+YD_years = df.loc[df['国家']=='犹大', '在位时间_year']
+YD_good_years = df.loc[(df['国家']=='犹大') & df['行善_indic'], '在位时间_year']
+YD_evil_years = df.loc[(df['国家']=='犹大') & df['行恶_indic'], '在位时间_year']
+
+print(YSL_years.mean())
+print(YD_years.mean())
+print(YD_good_years.mean())
+print(YD_evil_years.mean())
 
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -50,11 +59,11 @@ plt.rcParams['font.family'] = ['STSong']
 df = df.loc[~df['名'].isin(['扫罗', '大卫', '所罗门'])]
 fig, ax = plt.subplots(figsize=(6, 4))
 
-sns.distplot(df.loc[df['国家']=='以色列', '在位时间_year'].values, hist=False, 
+sns.distplot(YSL_years.values, hist=False, 
              color="r", kde_kws={"shade": True, "bw": 2}, ax=ax, label="以色列")
-sns.distplot(df.loc[(df['国家']=='犹大') & df['行善_indic'], '在位时间_year'].values, hist=False, 
+sns.distplot(YD_good_years.values, hist=False, 
              color="g", kde_kws={"shade": True, "bw": 2}, ax=ax, label="犹大（行善）")
-sns.distplot(df.loc[(df['国家']=='犹大') & ~df['行善_indic'], '在位时间_year'].values, hist=False, 
+sns.distplot(YD_evil_years, hist=False, 
              color="b", kde_kws={"shade": True, "bw": 2}, ax=ax, label="犹大（行恶）")
 fig.savefig('fig/reigning-years.png', bbox_inches='tight', dpi=300)
 
