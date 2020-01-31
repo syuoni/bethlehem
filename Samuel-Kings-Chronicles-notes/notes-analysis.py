@@ -63,7 +63,7 @@ sns.distplot(YSL_years.values, hist=False,
              color="r", kde_kws={"shade": True, "bw": 2}, ax=ax, label="以色列")
 sns.distplot(YD_good_years.values, hist=False, 
              color="g", kde_kws={"shade": True, "bw": 2}, ax=ax, label="犹大（行善）")
-sns.distplot(YD_evil_years, hist=False, 
+sns.distplot(YD_evil_years.values, hist=False, 
              color="b", kde_kws={"shade": True, "bw": 2}, ax=ax, label="犹大（行恶）")
 fig.savefig('fig/reigning-years.png', bbox_inches='tight', dpi=300)
 
